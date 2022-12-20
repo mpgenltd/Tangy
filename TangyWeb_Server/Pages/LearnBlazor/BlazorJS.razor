@@ -1,0 +1,15 @@
+@page "/blazorJS"
+@inject IJSRuntime _JsRuntime
+
+<h3>BlazorJS</h3>
+
+<div class="row">
+    <button class="btn btn-secondary" @onclick="TestConfirmBox">Test Confirm Box</button>
+</div>
+
+@code {
+    private async Task TestConfirmBox()
+    {
+        await _JsRuntime.InvokeVoidAsync("showToastr", "error", "Oops");
+    }
+}

@@ -1,0 +1,54 @@
+<div class="col-6 border p-2" @onclick="args => ProductClicked(Product, args)">
+    <h3 class="text-secondary">Product - @Product.Id</h3>
+    <hr/>
+    Name: @Product.Name<br/>
+    RF: 
+    @if (Fragment1 != null)
+    {
+        <span>@Fragment1</span>
+    }
+    @if (Fragment2 != null)
+    {
+        <span>@Fragment2</span>
+    }
+    <br/>
+    <input type="checkbox" @onchange="FavouriteChanged"/> Add To Favourites!<br/>
+    Show Properties: <input type="checkbox" @bind="@Product.IsActive"/>
+    @if (Product.IsActive)
+    {
+        @foreach (var productProperty in Product.Properties)
+        {
+            <p>
+                @productProperty.Key - @productProperty.Value
+            </p>
+        }
+    }
+    <_EditDeleteButton IsActive="@Product.IsActive"></_EditDeleteButton>
+</div>
+
+@code {
+    [Parameter]
+    public Demo_Product Product { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnFavouriteChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<Demo_Product> OnProductSelected { get; set; }
+    
+    [Parameter]
+    public RenderFragment Fragment1 { get; set; }
+    
+    [Parameter]
+    public RenderFragment Fragment2 { get; set; }
+    
+    private async Task FavouriteChanged(ChangeEventArgs e)
+    {
+        await OnFavouriteChanged.InvokeAsync((bool)e.Value);
+    }
+
+    private async Task ProductClicked(Demo_Product product, MouseEventArgs e)
+    {
+        await OnProductSelected.InvokeAsync(product);
+    }
+}

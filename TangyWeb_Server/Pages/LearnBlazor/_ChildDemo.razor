@@ -1,0 +1,38 @@
+@inject IJSRuntime _JsRuntime
+
+<div>
+    <div class="alert alert-info">@Title</div>
+    @if (ChildContent != null)
+    {
+        <div class="alert alert-success">
+            <span>@ChildContent</span>
+        </div>
+    }
+    <button class="btn btn-danger" @onclick="OnButtonClicked">Click Me</button>
+    <input type="text" placeholder="Hello" @attributes="InputAttributes"/>
+    <_GrandChildDemo Message="Hello"></_GrandChildDemo>
+    
+    <div class="row">
+        <button class="btn btn-secondary" @onclick="TestConfirmBox">Test Confirm Box</button>
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+    
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    
+    [Parameter]
+    public EventCallback OnButtonClicked { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> InputAttributes { get; set; } = new();
+    
+    public async Task TestConfirmBox()
+    {
+        await _JsRuntime.InvokeVoidAsync("showToastr", "error", "Oops");
+    }
+}

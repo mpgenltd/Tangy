@@ -1,0 +1,128 @@
+@page "/learnBlazor/bindprop"
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="text-primary">Individual Product</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6 border p-2">
+        <h3 class="text-success">Product Playground</h3>
+        <hr/>
+        Active: <input type="checkbox" @bind="@Product.IsActive"/><br/>
+        Price: <input type="number" @bind-value="@Product.Price" @bind-value:event="oninput"/><br/>
+
+        Product Properties:
+        <select @bind="SelectedProperty">
+            <option value="">None</option>
+            @foreach (var prop in Product.Properties)
+            {
+                <option value="@prop.Key">@prop.Key</option>
+            }
+        </select>
+    </div>
+    <div class="col-6 border p-2">
+        <h3 class="text-secondary">Product Summary</h3>
+        <hr/>
+        Name: @Product.Name<br/>
+        Active: @Product.IsActive<br/>
+        Price: @Product.Price<br/>
+        This Product is: @(Product.IsActive ? "Active" : "Inactive")<br/>
+        Property Selected is: @SelectedProperty<br/>
+        @if (!string.IsNullOrWhiteSpace(SelectedProperty))
+        {
+            <p>Property Value is @(Product.Properties.Single(p => p.Key == SelectedProperty).Value)</p>    
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="text-primary">Product Table</h3>
+        <table class="table table-striped">
+            @foreach (var product in Products)
+            {
+                <tr>
+                    <td>
+                        <input @bind="@product.Name" @bind:event="oninput"/>
+                    </td>
+                    <td>
+                        <input type="number" @bind="@product.Price" @bind:event="oninput"/>
+                    </td>
+                    <td>
+                        <input type="checkbox" @bind="@product.IsActive"/>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="text-secondary">Product Summary</h3>
+        @foreach (var product in Products)
+        {
+            <p>@product.Name (@product.Price) is @(product.IsActive ? "active" : "inactive")</p>
+        }
+    </div>
+</div>
+
+@code {
+
+    private string SelectedProperty = "";
+    
+    Demo_Product Product = new()
+    {
+        Id = 1,
+        Name = "Something!",
+        IsActive = true,
+        Price = 1.29,
+        
+        Properties = new List<Demo_ProductProp>
+        {
+            new Demo_ProductProp { Id = 1, Key = "Colour", Value = "Red" },
+            new Demo_ProductProp { Id = 2, Key = "Flavour", Value = "Cherry" },
+            new Demo_ProductProp { Id = 3, Key = "Size", Value = "20oz" }
+        }
+    };
+
+    List<Demo_Product> Products = new();
+
+    protected override void OnInitialized()
+    {
+        Products.AddRange(new List<Demo_Product>
+        { 
+            new()
+            {
+                Id = 2,
+                Name = "Something2!",
+                IsActive = true,
+                Price = 8.00,
+            
+                Properties = new List<Demo_ProductProp>
+                {
+                    new Demo_ProductProp { Id = 4, Key = "Colour", Value = "Blue" },
+                    new Demo_ProductProp { Id = 5, Key = "Flavour", Value = "Orange" },
+                    new Demo_ProductProp { Id = 6, Key = "Size", Value = "18oz" }
+                }
+            },
+            new()
+            {
+                Id = 3,
+                Name = "Something3!",
+                IsActive = true,
+                Price = 18.00,
+            
+                Properties = new List<Demo_ProductProp>
+                {
+                    new Demo_ProductProp { Id = 7, Key = "Colour", Value = "Yellow" },
+                    new Demo_ProductProp { Id = 8, Key = "Flavour", Value = "Banana" },
+                    new Demo_ProductProp { Id = 9, Key = "Size", Value = "12oz" }
+                }
+            }
+        });
+    }
+
+}

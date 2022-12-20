@@ -1,0 +1,48 @@
+@page "/lifeCycle"
+
+<h3>LifeCycle</h3>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<_LifeCycleChild></_LifeCycleChild>
+
+@foreach (var eventType in EventTypes)
+{
+    <p>@eventType</p>
+    <hr/>
+}
+
+@code {
+    private int currentCount = 0;
+    private List<string> EventTypes = new();
+    
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    protected override void OnInitialized()
+    {
+        EventTypes.Add("OnInitialized");
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        EventTypes.Add("OnInitializedAsync");
+        return Task.CompletedTask;
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventTypes.Add("OnParametersSet");
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        EventTypes.Add("OnParametersSetAsync");
+        return Task.CompletedTask;
+    }
+
+}

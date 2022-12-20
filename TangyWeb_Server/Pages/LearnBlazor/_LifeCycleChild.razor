@@ -1,0 +1,23 @@
+<h3>_LifeCycleChild</h3>
+
+@foreach (var eventType in EventTypes)
+{
+    <p>@eventType</p>
+    <hr/>
+}
+
+@code {
+    private List<string> EventTypes = new();
+    
+    protected override void OnInitialized()
+    {
+        EventTypes.Add("Child OnInitialized");
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        EventTypes.Add("Child OnInitializedAsync");
+        return Task.CompletedTask;
+    }
+
+}

@@ -1,0 +1,23 @@
+@page "/learnBlazor/parentComponent"
+
+<h3>ParentDemo</h3>
+
+<CascadingValue Value="CascadedP1Value" Name="P1">
+    <_ChildDemo @ref="ChildDemo" Title="Hello" OnButtonClicked="ShowMessage" placeholder="Goodbyte">
+        Some Fragment
+    </_ChildDemo>
+</CascadingValue>
+
+<p>@MessageText</p>
+
+@code {
+    private string MessageText { get; set; } = "";
+    private string CascadedP1Value { get; set; } = "Cascaded P1 Value";
+    private _ChildDemo ChildDemo { get; set; }
+    
+    private async Task ShowMessage()
+    {
+        await ChildDemo.TestConfirmBox();
+        MessageText = "Bum";
+    }
+}

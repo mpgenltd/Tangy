@@ -1,0 +1,10 @@
+<h3>@Message @P1</h3>
+
+@code {
+    [Parameter]
+    public string Message { get; set; } = "Yo";
+
+    [CascadingParameter(Name = "P1")]
+    public string P1 { get; set; } = "";
+
+}

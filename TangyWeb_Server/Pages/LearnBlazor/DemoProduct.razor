@@ -1,0 +1,85 @@
+@page "/learnBlazor/demoproduct"
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="text-primary">Demo Product</h3>
+    </div>
+    <div class="alert alert-info">
+        Favourites: @FavouritesCount<br/>
+        Last Selected: @LastSelectedProduct?.Name<br/>
+    </div>
+    
+</div>
+
+<div class="row">
+    @foreach (var product in Products)
+    {
+        <_Product Product="@product"
+                  OnFavouriteChanged="FavouriteChanged"
+                  OnProductSelected="ProductSelected">
+            <Fragment1><span class="pe-1">hi1</span></Fragment1>
+            <Fragment2>hi2</Fragment2>
+        </_Product>
+    }
+</div>
+
+@code {
+
+    private int FavouritesCount { get; set; } = 0;
+    
+    private Demo_Product LastSelectedProduct { get; set; }
+    
+    private List<Demo_Product> Products = new();
+
+    protected override void OnInitialized()
+    {
+        Products.AddRange(new List<Demo_Product>
+        { 
+            new()
+            {
+                Id = 2,
+                Name = "Something2!",
+                IsActive = true,
+                Price = 8.00,
+            
+                Properties = new List<Demo_ProductProp>
+                {
+                    new() { Id = 4, Key = "Colour", Value = "Blue" },
+                    new() { Id = 5, Key = "Flavour", Value = "Orange" },
+                    new() { Id = 6, Key = "Size", Value = "18oz" }
+                }
+            },
+            new()
+            {
+                Id = 3,
+                Name = "Something3!",
+                IsActive = true,
+                Price = 18.00,
+            
+                Properties = new List<Demo_ProductProp>
+                {
+                    new() { Id = 7, Key = "Colour", Value = "Yellow" },
+                    new() { Id = 8, Key = "Flavour", Value = "Banana" },
+                    new() { Id = 9, Key = "Size", Value = "12oz" }
+                }
+            }
+        });
+    }
+
+    private void FavouriteChanged(bool isSelected)
+    {
+        if (isSelected)
+        {
+            FavouritesCount++;
+        }
+        else
+        {
+            FavouritesCount--;
+        }
+    }
+
+    private void ProductSelected(Demo_Product product)
+    {
+        LastSelectedProduct = product;
+    }
+}

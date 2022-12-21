@@ -27,7 +27,7 @@ public class CategoryRepository : ICategoryRepository
         return _mapper.Map<CategoryDto>(category);
     }
 
-    public async Task Update(CategoryDto dto)
+    public async Task<CategoryDto> Update(CategoryDto dto)
     {
         var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == dto.Id);
 
@@ -36,7 +36,11 @@ public class CategoryRepository : ICategoryRepository
             _mapper.Map(dto, category);
             _context.Update(category);
             await _context.SaveChangesAsync();
+
+            return _mapper.Map<CategoryDto>(category);
         }
+
+        return dto;
     }
     
     public async Task<int> Delete(int id)

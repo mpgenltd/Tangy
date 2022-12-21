@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Tangy_DataAccess.Data;
 using Tangy_DataAccess.Repositories;
 using TangyWeb_Server.Data;
+using TangyWeb_Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
+builder.Services.AddScoped<IFileUpload, FileUpload>();
 
 var app = builder.Build();
 

@@ -10,3 +10,11 @@ window.showToastr = (type, message) => {
         });    
     }
 }
+
+function showDeleteConfirmationModal() {
+    $("#deleteConfirmationModal").modal("show");
+}
+
+function hideDeleteConfirmationModal() {
+    $("#deleteConfirmationModal").modal("hide");
+}

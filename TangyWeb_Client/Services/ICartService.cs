@@ -1,6 +1,6 @@
 ﻿using TangyWeb_Client.ViewModels;
 
-namespace TangyWeb_Client.Serivce.IService
+namespace TangyWeb_Client.Services
 {
     public interface ICartService
     {

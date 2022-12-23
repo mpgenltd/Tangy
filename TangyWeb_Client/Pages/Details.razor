@@ -7,7 +7,7 @@
 @using TangyWeb_Client.Helpers
 
 @inject IProductService _productService
-@* @inject ICartService _cartService *@
+@inject ICartService _cartService
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 
@@ -140,7 +140,7 @@ else
             ProductPriceId = DetailsVm.SelectedProductPriceId
         };
 
-    // await _cartService.IncrementCart(shoppingCart);
+        await _cartService.IncrementCart(shoppingCart);
         _navigationManager.NavigateTo("/");
         await _jsRuntime.ToastrSuccess("Product added to cart successfully");
     }

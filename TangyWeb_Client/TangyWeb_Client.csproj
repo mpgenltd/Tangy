@@ -18,4 +18,18 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Tangy_Models\Tangy_Models.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Newtonsoft.Json">
+        <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\7.0.100\Newtonsoft.Json.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Packaging;
 using Tangy_DataAccess.Repositories;
@@ -17,6 +18,7 @@ namespace TangyWeb_API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetAll()
         {
             var products = await _productRepository.GetAll();

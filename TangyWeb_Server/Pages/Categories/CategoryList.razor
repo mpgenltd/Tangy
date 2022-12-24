@@ -3,6 +3,8 @@
 @inject ICategoryRepository _repo
 @inject IJSRuntime _jsRuntime
 
+@attribute [Authorize]
+
 <_DeleteConfirmation ConfirmationChanged="ConfirmDeleteClicked" IsParentComponentProcessing="IsLoading"/>
 <div class="row mt-4">
     <div class="col-6">

@@ -4,6 +4,7 @@ using Tangy_DataAccess.Data;
 using Tangy_DataAccess.Repositories;
 using TangyWeb_Server.Data;
 using TangyWeb_Server.Services;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnectionString"));
 });
+
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -39,7 +43,8 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 

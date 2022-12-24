@@ -2,6 +2,7 @@
 
 @inject IProductRepository _repo
 @inject IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
 
 <_DeleteConfirmation ConfirmationChanged="ConfirmDeleteClicked" IsParentComponentProcessing="IsLoading"/>
 <div class="row mt-4">
@@ -80,10 +81,26 @@
     private bool IsLoading { get; set; } = true;
     private int ProductIdToBeDeleted { get; set; }
 
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState {  get;  set; }
+
     protected override async Task OnInitializedAsync()
     {
-        Products = await _repo.GetAll();
-        IsLoading = false;
+        var authState = await AuthenticationState;
+        if (!authState.User.Identity.IsAuthenticated)
+        {
+            var uri = new Uri(_navigationManager.Uri);
+            _navigationManager.NavigateTo($"/identity/account/login?returnUrl={uri.LocalPath}",forceLoad:true);
+        }
+        else
+        {
+            // if (!authState.User.IsInRole(Tangy_Common.SD.Role_Admin))
+            // {
+            //     _navigationManager.NavigateTo("/ErrorPage");
+            // }
+            Products = await _repo.GetAll();
+            IsLoading = false;
+        }
     }
 
     private async Task HandleDelete(int id)

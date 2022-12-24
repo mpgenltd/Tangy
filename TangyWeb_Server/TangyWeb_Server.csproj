@@ -21,11 +21,17 @@
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="12.0.0" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.1" />
       <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.4.0.38" />
       <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.38" />
     </ItemGroup>
